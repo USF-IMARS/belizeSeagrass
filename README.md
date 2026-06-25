@@ -1,8 +1,14 @@
 # Workflow
-* Navigate to project directory ~/pgs/belizeSeagrass or
+* Login to [IMaRS JupyterHub](https://manglillo.marine.usf.edu)
+* Navigate to project directory `~/pgs/belizeSeagrass`
+* Now you can:
+  * Open research notebooks (`.ipynb` files) using left panel
+  * Run bash commands from `Terminal`
+  * To get started try:
+    * `test_gee.ipynb` jupyter research notebook
 
 
-## git setup
+## (optional) git setup
 Modify the first two lines and run in a bash terminal:
 
 ```bash
