@@ -8,7 +8,7 @@ website:
       - href: index.qmd
         text: Home
 
-      - href: test_gee.qmd
+      - href: reports/test_gee.qmd
         text: GEE test
       # - text: Downstream Flows
       #   menu:

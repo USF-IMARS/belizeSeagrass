@@ -1,4 +1,4 @@
-.PHONY: sync render clean all status
+.PHONY: sync render publish clean all status
 
 # ----------------------------
 # Paths
@@ -32,6 +32,13 @@ sync:
 render:
 	@echo "📊 Rendering Quarto site..."
 	quarto render
+
+# ----------------------------
+# Publish to GitHub Pages
+# ----------------------------
+publish: sync render
+	@echo "🚀 Publishing to GitHub Pages..."
+	quarto publish gh-pages
 
 # ----------------------------
 # Clean build artifacts
