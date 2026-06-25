@@ -33,8 +33,6 @@ gh ssh-key add ~/.ssh/id_ed25519.pub --title "$(hostname)"
 ```
 
 
-
-
 ## (git admin only) jupytext+qmd for pretty git diffs
 
 One-time setup after cloning repo:
@@ -42,8 +40,12 @@ One-time setup after cloning repo:
 ```bash
 # Restore .ipynb from .qmd after cloning w/ jupytext
 jupytext *.qmd --to ipynb
+```
 
-# enable pairing for the repo
-jupytext --set-formats ipynb,../reports//qmd notebooks/*.ipynb
+
+### before every commit
+
+```bash
+make sync  # generates .qmd files from .ipynb
 ```
 
