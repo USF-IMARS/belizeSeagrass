@@ -6,8 +6,7 @@
   * Run bash commands from `Terminal`
   * To get started try:
     * `test_gee.ipynb` jupyter research notebook
-
-
+* This project can be deployed to a website [usf-imars.github.io/belizeSeagrass/](https://usf-imars.github.io/belizeSeagrass/) using by running `make publish` in a bash terminal.
 
 
 --------------------------------------------------------------
