@@ -1,0 +1,23 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Belize Seagrass Mapping",
+    "section": "",
+    "text": "This project explores mapping of seagrass and analysis of seagrass change in Belize."
+  },
+  {
+    "objectID": "reports/test_gee.html",
+    "href": "reports/test_gee.html",
+    "title": "Belize Seagrass Mapping",
+    "section": "",
+    "text": "Code\n# Run this cell to authenticate and/or initialize with GEE.\n# When prompted :\n#   select `Cloud Project: imars-simm-belize`\n#   \"Generate Token\"\n#   \"Continue\" past safety warning\n#   Check boxes & \"Continue\"\n#   Paste the code into the box below & press enter\nimport ee\ntry:\n    ee.Initialize()\n    print(\"Earth Engine already initialized\")\nexcept Exception:\n    print(\"Not initialized — launching authentication flow\")\n    ee.Authenticate(auth_mode=\"notebook\")\n    ee.Initialize()\n\n\nEarth Engine already initialized\n\n\n\n\nCode\n# Run this cell to test GEE.\n# An Image ID should be printed.\nimg = ee.ImageCollection(\"COPERNICUS/S2_SR_HARMONIZED\").first()\n\nprint(\"Image ID:\")\nprint(img.get(\"PRODUCT_ID\").getInfo())\n\n\nImage ID:\nS2A_MSIL2A_20150704T101006_N0500_R022_T33VXK_20231010T083126"
+  },
+  {
+    "objectID": "notebooks/test_gee.html",
+    "href": "notebooks/test_gee.html",
+    "title": "Belize Seagrass Mapping",
+    "section": "",
+    "text": "Code\n# Run this cell to authenticate and/or initialize with GEE.\n# When prompted :\n#   select `Cloud Project: imars-simm-belize`\n#   \"Generate Token\"\n#   \"Continue\" past safety warning\n#   Check boxes & \"Continue\"\n#   Paste the code into the box below & press enter\nimport ee\ntry:\n    ee.Initialize()\n    print(\"Earth Engine already initialized\")\nexcept Exception:\n    print(\"Not initialized — launching authentication flow\")\n    ee.Authenticate(auth_mode=\"notebook\")\n    ee.Initialize()\n\n\nTo authorize access needed by Earth Engine, open the following\n        URL in a web browser and follow the instructions:\n        https://code.earthengine.google.com/client-auth?scopes=https%3A//www.googleapis.com/auth/earthengine%20https%3A//www.googleapis.com/auth/cloud-platform%20https%3A//www.googleapis.com/auth/drive%20https%3A//www.googleapis.com/auth/devstorage.full_control&request_id=ycMEfrpMnqy3t_MKkmm2s5tgbwop8VcpadnVdxiiM-I&tc=dSs2OrdyRKzkBAM273aY9f9fccdSvvpQ_ExiEDmDKcQ&cc=lZuGlm3lOU7xRTNpFJ_vfL4I8IfENHpIUcpp4fHNrs0\n        The authorization workflow will generate a code, which you should paste in the box below.\n        \n\n\nEnter verification code:  4/1AdkVLPyvxvU5uik737ux0DbNsAFxpfdhWXzqWv3gYrKjviPwZP9kKaBqRRo\n\n\n\nSuccessfully saved authorization token.\n\n\n\n\nCode\n# Run this cell to test GEE.\n# An Image ID should be printed.\nimg = ee.ImageCollection(\"COPERNICUS/S2_SR_HARMONIZED\").first()\n\nprint(\"Image ID:\")\nprint(img.get(\"PRODUCT_ID\").getInfo())\n\n\nImage ID:\nS2A_MSIL2A_20150704T101006_N0500_R022_T33VXK_20231010T083126"
+  }
+]
