@@ -1,0 +1,30 @@
+project:
+  type: website
+
+website:
+  title: "Belize Seagrass Mapping"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+
+      - href: test_gee.qmd
+        text: GEE test
+      # - text: Downstream Flows
+      #   menu:
+      #   - riverflows/riverflowSouth.qmd
+      #   - riverflows/riverflowEast.qmd
+      #   - riverflows/riverflowWest.qmd
+      #   - riverflows/riverflowSoutheast.qmd
+      #   - riverflows/riverflowSouthwest.qmd
+        
+      - href: https://github.com/usf-imars/belizeSeagrass
+        text: Source Code on GitHub
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    code-fold: true
+    message: false
+    warning: false

@@ -1,7 +1,6 @@
 ---
 jupyter:
   jupytext:
-    formats: ipynb,../reports//qmd
     text_representation:
       extension: .qmd
       format_name: quarto
@@ -14,25 +13,28 @@ jupyter:
 ---
 
 ```{python}
-# Run this cell to authenticate with GEE
+# Run this cell to authenticate and/or initialize with GEE.
 # When prompted :
 #   select `Cloud Project: imars-simm-belize`
 #   "Generate Token"
 #   "Continue" past safety warning
 #   Check boxes & "Continue"
 #   Paste the code into the box below & press enter
-ee.Authenticate(auth_mode="notebook")
+import ee
+try:
+    ee.Initialize()
+    print("Earth Engine already initialized")
+except Exception:
+    print("Not initialized — launching authentication flow")
+    ee.Authenticate(auth_mode="notebook")
+    ee.Initialize()
 ```
 
 ```{python}
 # Run this cell to test GEE.
 # An Image ID should be printed.
-import ee
-
-ee.Initialize(project="imars-simm-belize")
 img = ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED").first()
 
 print("Image ID:")
 print(img.get("PRODUCT_ID").getInfo())
 ```
-

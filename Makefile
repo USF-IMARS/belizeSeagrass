@@ -1,3 +1,5 @@
+.PHONY: sync render clean all status
+
 # ----------------------------
 # Paths
 # ----------------------------
@@ -19,8 +21,9 @@ sync:
 	@echo "🔄 Syncing notebooks → qmd..."
 	@mkdir -p $(REPORT_DIR)
 	@for f in $(IPYNB); do \
-		echo "  -> $$f"; \
-		jupytext --to qmd "$$f" --output $(REPORT_DIR)/; \
+		out="$(REPORT_DIR)/$$(basename $$f .ipynb).qmd"; \
+		echo "  -> $$f → $$out"; \
+		jupytext --to qmd "$$f" -o "$$out"; \
 	done
 
 # ----------------------------
