@@ -8,6 +8,12 @@
     * `test_gee.ipynb` jupyter research notebook
 
 
+
+
+--------------------------------------------------------------
+
+# Technical Details
+
 ## (optional) git setup
 Modify the first two lines and run in a bash terminal:
 
@@ -25,3 +31,19 @@ gh auth login                                       # follow prompts
 gh auth refresh -h github.com -s admin:public_key   # follow prompts
 gh ssh-key add ~/.ssh/id_ed25519.pub --title "$(hostname)"
 ```
+
+
+
+
+## (git admin only) jupytext+qmd for pretty git diffs
+
+One-time setup after cloning repo:
+
+```bash
+# Restore .ipynb from .qmd after cloning w/ jupytext
+jupytext *.qmd --to ipynb
+
+# enable pairing for the repo
+jupytext --set-formats ipynb,../reports//qmd notebooks/*.ipynb
+```
+
