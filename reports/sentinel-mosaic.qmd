@@ -12,6 +12,10 @@ jupyter:
     name: python3
 ---
 
+This notebook creates a true color mosaic from a year of Sentinel images.
+
+ChatGPT was used in development of this notebook [[chat ref](https://chatgpt.com/share/6a4681c9-2b50-83ea-9d84-b32cafe073cb)].
+
 ```{python}
 import ee
 
