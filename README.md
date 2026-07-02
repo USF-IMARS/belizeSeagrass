@@ -13,7 +13,7 @@
 
 # Technical Details
 
-## (optional) git setup
+## (optional) initial git setup
 Modify the first two lines and run in a bash terminal:
 
 ```bash

@@ -1,0 +1,115 @@
+---
+jupyter:
+  jupytext:
+    text_representation:
+      extension: .qmd
+      format_name: quarto
+      format_version: '1.0'
+      jupytext_version: 1.19.3
+  kernelspec:
+    display_name: Python 3 (ipykernel)
+    language: python
+    name: python3
+---
+
+```{python}
+import ee
+
+try:
+    ee.Initialize()
+except Exception:
+    ee.Authenticate()
+    ee.Initialize()
+```
+
+```{python}
+countries = ee.FeatureCollection("USDOS/LSIB_SIMPLE/2017")
+
+belize = countries.filter(
+    ee.Filter.eq("country_na", "Belize")
+).geometry()
+
+# Optional: expand offshore to approximate EEZ / marine zone
+belize_marine = belize.buffer(50000)  # 50 km offshore buffer
+```
+
+```{python}
+YEAR = 2024
+START = f"{YEAR}-01-01"
+END   = f"{YEAR}-12-31"
+
+s2 = (
+    ee.ImageCollection("COPERNICUS/S2_SR_HARMONIZED")
+    .filterDate(START, END)
+    .filterBounds(belize_marine)
+    .filter(ee.Filter.lt("CLOUDY_PIXEL_PERCENTAGE", 60))
+)
+```
+
+```{python}
+def mask_s2(img):
+    scl = img.select("SCL")
+
+    # Keep: vegetation, bare soil, water
+    mask = (
+        scl.eq(4)  # vegetation
+        .Or(scl.eq(5))  # bare soil
+        .Or(scl.eq(6))  # water
+        .Or(scl.eq(7))  # unclassified (sometimes useful in coastal zones)
+    )
+
+    return (
+        img.updateMask(mask)
+        .divide(10000)
+        .select(["B2", "B3", "B4"])
+        .copyProperties(img, img.propertyNames())
+    )
+
+s2_clean = s2.map(mask_s2)
+```
+
+```{python}
+mosaic = s2_clean.median().clip(belize_marine)
+
+print("Image count:", s2_clean.size().getInfo())
+```
+
+```{python}
+import requests
+from PIL import Image
+from io import BytesIO
+import matplotlib.pyplot as plt
+
+vis = {
+    "bands": ["B4", "B3", "B2"],
+    "min": 0.02,
+    "max": 0.25,
+    "gamma": 1.2
+}
+
+thumb = mosaic.visualize(**vis)
+
+url = thumb.getThumbURL({
+    "region": belize_marine,
+    "dimensions": 2500,
+    "format": "png"
+})
+
+img = Image.open(BytesIO(requests.get(url).content))
+
+plt.figure(figsize=(10, 10))
+plt.imshow(img)
+plt.axis("off")
+plt.title(f"Belize Sentinel-2 True Color Mosaic ({YEAR})")
+```
+
+```{python}
+# check for any errors from GEE API
+import requests
+
+resp = requests.get(url)
+
+print(resp.status_code)
+print(resp.text[:500])  # important
+```
+
